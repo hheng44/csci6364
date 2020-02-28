@@ -183,19 +183,6 @@ def getAccuracy2(testSet, predictions):
 
 
 
-class MyThread(Thread):
-    def __init__(self,trainingSet=[],testSet=0,k=0):
-        Thread.__init__(self)
-        self.k = k
-        self.testSet = testSet
-        self.trainingSet = trainingSet
-        
-    def run(self):
-        self.result=getNeigthbors(self.trainingSet,self.testSet,self.k)
-    def getresult(self):
-        return self.result
-
-
 
 
 
@@ -233,6 +220,7 @@ def main():
     k = 3
 
     '''
+    #write the submission sample file
     for x in range(len(testSet2)):
          neighbors = getNeigthbors(trainingSet2,testSet2[x],k)
          print(28000-x)
@@ -248,6 +236,8 @@ def main():
 
            writer.writerow([i,predicitions2[i]])
     '''
+    
+    # test the accuracy of diabetes.csv data
     for x in range(len(testSet)):
         neighbors = getNeigthbors(trainingSet, testSet[x], k)
         result = getResponse(neighbors)  # type: object
@@ -256,6 +246,7 @@ def main():
     accuracy = getAccuracy(testSet, predicitions)
     print('Accuracy:' + repr(accuracy) + '%')
     print(len(predicitions))
+    
    # print('> predicition = '+ repr(result) + ', actual = '+ repr(testSet2[x][-1]))
    # accuracy = getAccuracy(testSet2, predicitions2)
    # print('Accuracy:' + repr(accuracy) + '%')
@@ -263,6 +254,7 @@ def main():
 
 
     '''
+    # test the the accurcay of train.csv with digit '2'
     for x in range(len(testsetforaccuracy)):
         neighbors = getNeigthbors(trainingsetforaccuracy,testsetforaccuracy[x],k)
         print(len(testsetforaccuracy)-x)
@@ -278,7 +270,3 @@ def main():
     end = time.clock()
     print('Running time: %s Seconds' % (end - start))
 main()
-
-'''
- 
-'''
